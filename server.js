@@ -12,13 +12,13 @@ app.configure(function(){
 });
 
 app.get("/posts", function (req, res) {
-  posts.find(function (results) {
+  posts.find(function (err, results) {
     res.json(results);
-});
+  });
 });
 
 app.post("/posts", function(req, res) {
-  posts.insert(req.body, function(result) {
+  posts.insert(req.body, function(err, result) {
     res.json(result);
   });
 });
