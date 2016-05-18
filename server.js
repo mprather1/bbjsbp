@@ -24,7 +24,10 @@ app.post("/posts", function(req, res) {
 });
 
 app.get('*/', function(req, res){
-  res.render("index.ejs");
+  posts.find(function(err, results) {
+    res.render("index.ejs", { posts: JSON.stringify(results) });
+  });
 });
+
 
 app.listen(3000);
