@@ -14,6 +14,14 @@ var Posts = Backbone.Collection.extend({
 var PostListView = Backbone.View.extend({
   tagName: "li",
   template: _.template("<a href='/posts/{{id}}'>{{title}}</a>"),
+  events: {
+    'click a': 'handleClick'
+  },
+  handleClick: function(e) {
+    e.preventDefault();
+    postRouter.navigate($(e.currentTarget).attr("href"),
+     {trigger: true});
+  },
   render: function() {
     this.el.innerHTML = this.template(this.model.toJSON());
     return this;
