@@ -3,12 +3,24 @@ interpolate: /\{\{(.+?)\}\}/g
 };
 
 var Post = Backbone.Model.extend({
-
+  initialize: function(){
+    this.comments = new Comments([], { post: this });
+  }
 });
 
 var Posts = Backbone.Collection.extend({
   model: Post,
   url: "/posts"
+});
+
+var Comment = Backbone.Model.extend({});
+var Comments = Backbone.Collection.extend({
+  initialize: function(models, options) {
+    this .post = options.post;
+  },
+  url: function() {
+    return this.post.url() + "/comments";
+  }
 });
 
 var PostListView = Backbone.View.extend({
